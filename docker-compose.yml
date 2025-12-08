@@ -2,45 +2,63 @@ version: '3.8'
 
 services:
   traefik:
-    image: traefik:v2.10
-    container_name: traefik
+    image: traefik:v2.11
+    container_name: supermem-traefik
     restart: unless-stopped
+    command:
+      # 日志
+      - "--log.level=INFO"
+      - "--accesslog=true"
+      # 入口点
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      # HTTP 到 HTTPS 重定向
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      # Docker 提供商
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=supermem-network"
+      # Let's Encrypt 证书（HTTP Challenge）
+      - "--certificatesresolvers.letsencrypt.acme.email=diamond.shx@gmail.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
     ports:
       - "80:80"
       - "443:443"
-    environment:
-      - CF_API_EMAIL=${CF_API_EMAIL}
-      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./traefik/traefik.yml:/traefik.yml:ro
-      - ./traefik/acme.json:/acme.json
+      - traefik_letsencrypt:/letsencrypt
     networks:
-      - proxy
+      - supermem-network
 
   supermem-waitlist:
     build: .
     container_name: supermem-waitlist
     restart: unless-stopped
+    depends_on:
+      - traefik
     environment:
       - NODE_ENV=production
       - SUPABASE_URL=${SUPABASE_URL}
       - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+    networks:
+      - supermem-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.supermem.entrypoints=http"
+      # HTTPS 路由
       - "traefik.http.routers.supermem.rule=Host(`supermem.io`) || Host(`www.supermem.io`)"
-      - "traefik.http.routers.supermem.middlewares=https-redirect"
-      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.supermem-secure.entrypoints=https"
-      - "traefik.http.routers.supermem-secure.rule=Host(`supermem.io`) || Host(`www.supermem.io`)"
-      - "traefik.http.routers.supermem-secure.tls=true"
-      - "traefik.http.routers.supermem-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.supermem.entrypoints=websecure"
+      - "traefik.http.routers.supermem.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.supermem.service=supermem"
       - "traefik.http.services.supermem.loadbalancer.server.port=8080"
-    networks:
-      - proxy
+
+volumes:
+  traefik_letsencrypt:
+    driver: local
 
 networks:
-  proxy:
-    external: true
+  supermem-network:
+    driver: bridge
 
