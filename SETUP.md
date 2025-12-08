@@ -84,6 +84,15 @@ Or for development:
 node server.js
 ```
 
+## 🌐 Server Configuration
+
+The server runs on **port 8080** and listens on **all network interfaces (0.0.0.0)**, which means:
+- Accessible locally via `http://localhost:8080`
+- Accessible from other devices on the same network via `http://YOUR_LOCAL_IP:8080`
+- Find your local IP: 
+  - macOS/Linux: `ifconfig | grep "inet "`
+  - Windows: `ipconfig`
+
 ## 📝 API Endpoints
 
 ### POST /api/waitlist

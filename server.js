@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
-const PORT = 3000;
+const PORT = 8080;
+const HOST = '0.0.0.0';  // Listen on all network interfaces
 
 // Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -105,12 +106,13 @@ app.get('/api/health', (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
     console.log('='.repeat(60));
-    console.log('🚀 Supermem Waitlist Server running on http://localhost:${PORT}');
-    console.log('📝 Form available at: http://localhost:${PORT}/supermem-waitlist.html');
-    console.log('📊 View submissions at: http://localhost:${PORT}/api/submissions');
-    console.log('💚 Health check: http://localhost:${PORT}/api/health');
+    console.log(`🚀 Supermem Waitlist Server running on http://localhost:${PORT}`);
+    console.log(`🌐 Server accessible from network on http://${HOST}:${PORT}`);
+    console.log(`📝 Form available at: http://localhost:${PORT}/index.html`);
+    console.log(`📊 View submissions at: http://localhost:${PORT}/api/submissions`);
+    console.log(`💚 Health check: http://localhost:${PORT}/api/health`);
     console.log('='.repeat(60));
     console.log('✅ Supabase connected:', supabaseUrl);
     console.log('='.repeat(60));
