@@ -4,3 +4,6 @@ node_modules/
 submissions.json
 traefik/acme.json
 
+# IDE
+.idea/
+.vscode/
