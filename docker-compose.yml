@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - CF_API_EMAIL=${CF_API_EMAIL}
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/traefik.yml:ro
+      - ./traefik/acme.json:/acme.json
+    networks:
+      - proxy
+
+  supermem-waitlist:
+    build: .
+    container_name: supermem-waitlist
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.supermem.entrypoints=http"
+      - "traefik.http.routers.supermem.rule=Host(`supermem.io`) || Host(`www.supermem.io`)"
+      - "traefik.http.routers.supermem.middlewares=https-redirect"
+      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.supermem-secure.entrypoints=https"
+      - "traefik.http.routers.supermem-secure.rule=Host(`supermem.io`) || Host(`www.supermem.io`)"
+      - "traefik.http.routers.supermem-secure.tls=true"
+      - "traefik.http.routers.supermem-secure.tls.certresolver=cloudflare"
+      - "traefik.http.services.supermem.loadbalancer.server.port=8080"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
+

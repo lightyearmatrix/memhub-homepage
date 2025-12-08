@@ -1,4 +1,6 @@
 node_modules/
 .env
+.env.production
 submissions.json
+traefik/acme.json
 
