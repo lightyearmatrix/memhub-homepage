@@ -32,15 +32,17 @@ services:
       - supermem-network
 
   supermem-waitlist:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
     container_name: supermem-waitlist
     restart: unless-stopped
     depends_on:
       - traefik
+    env_file:
+      - .env
     environment:
       - NODE_ENV=production
-      - SUPABASE_URL=${SUPABASE_URL}
-      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
     networks:
       - supermem-network
     labels:
