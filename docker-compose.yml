@@ -57,11 +57,11 @@ services:
     labels:
       - "traefik.enable=true"
       # HTTP 路由 - 重定向到 HTTPS
-      - "traefik.http.routers.supermem-http.rule=Host(`supermem.io`) || Host(`www.supermem.io`)"
+      - "traefik.http.routers.supermem-http.rule=Host(`www.supermem.io`)"
       - "traefik.http.routers.supermem-http.entrypoints=web"
       - "traefik.http.routers.supermem-http.middlewares=https-redirect"
       # HTTPS 路由
-      - "traefik.http.routers.supermem.rule=Host(`supermem.io`) || Host(`www.supermem.io`)"
+      - "traefik.http.routers.supermem.rule=Host(`www.supermem.io`)"
       - "traefik.http.routers.supermem.entrypoints=websecure"
       - "traefik.http.routers.supermem.tls.certresolver=letsencrypt"
       # 中间件 - HTTPS 重定向
