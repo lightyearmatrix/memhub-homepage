@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermem - Your Memory, Finally Under Your Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --peridot: #B8E986;
+            --tiffany: #0ABAB5;
+            --neon-pink: #FF10F0;
+            --neon-yellow: #FFFF00;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(184, 233, 134, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(10, 186, 181, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 16, 240, 0.03) 0%, transparent 50%);
+            z-index: 0;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(184, 233, 134, 0.1);
+            padding: 1.5rem 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--peridot), var(--tiffany));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .cta-button {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--peridot), var(--tiffany));
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(184, 233, 134, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(184, 233, 134, 0.5);
+        }
+
+        /* Section Container */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Neon dividers between sections */
+        .neon-divider {
+            height: 2px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    var(--neon-pink) 20%,
+                    var(--tiffany) 50%,
+                    var(--neon-yellow) 80%,
+                    transparent 100%);
+            box-shadow: 0 0 20px rgba(255, 16, 240, 0.5);
+            animation: neonPulse 3s ease infinite;
+        }
+
+        @keyframes neonPulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 4rem;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .hero-illustration {
+            position: absolute;
+            top: -100px;
+            right: -200px;
+            width: 400px;
+            height: 400px;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        .brain-rocket {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .rocket {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: 180px;
+            height: 180px;
+        }
+
+        .rocket-body {
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--tiffany), var(--peridot));
+            border-radius: 40px 40px 10px 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 40px rgba(10, 186, 181, 0.6);
+        }
+
+        .rocket-window {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .rocket-fin {
+            width: 30px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--peridot), var(--tiffany));
+            position: absolute;
+            bottom: 10px;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        .rocket-fin-left {
+            left: -15px;
+            transform: rotate(-20deg);
+        }
+
+        .rocket-fin-right {
+            right: -15px;
+            transform: rotate(20deg);
+        }
+
+        .rocket-fire {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(180deg, var(--neon-yellow), var(--neon-pink));
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            filter: blur(4px);
+            animation: fire 0.3s ease infinite;
+        }
+
+        @keyframes fire {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scaleY(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateX(-50%) scaleY(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        .brain-avatar {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF6B9D, #C06BFF);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: 0 0 30px rgba(192, 107, 255, 0.6);
+            z-index: 10;
+        }
+
+        .brain-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 70% 40%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0.3) 2px, transparent 2px);
+        }
+
+        .cape {
+            position: absolute;
+            top: 50px;
+            left: -40px;
+            width: 100px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--neon-pink), var(--tiffany));
+            clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
+            transform: rotate(-10deg);
+            opacity: 0.8;
+            animation: capeFlow 2s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes capeFlow {
+
+            0%,
+            100% {
+                transform: rotate(-10deg) scaleX(1);
+            }
+
+            50% {
+                transform: rotate(-15deg) scaleX(1.1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-illustration {
+                width: 200px;
+                height: 200px;
+                top: -50px;
+                right: -100px;
+            }
+
+            .rocket {
+                width: 100px;
+                height: 100px;
+            }
+
+            .rocket-body {
+                width: 50px;
+                height: 80px;
+            }
+
+            .brain-avatar {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        .eyebrow {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--tiffany);
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(10, 186, 181, 0.5);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin: 1rem 0;
+            background: linear-gradient(135deg, var(--peridot), var(--tiffany), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 80px rgba(184, 233, 134, 0.3);
+            letter-spacing: -2px;
+        }
+
+        .hero-subheadline {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            max-width: 800px;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+
+        .benefit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+            text-align: left;
+            max-width: 600px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .benefit-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--tiffany), var(--peridot));
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(10, 186, 181, 0.5);
+        }
+
+        .early-bird {
+            font-size: 0.95rem;
+            color: var(--peridot);
+            margin: 1.5rem 0;
+            padding: 1rem 2rem;
+            background: rgba(184, 233, 134, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(184, 233, 134, 0.2);
+        }
+
+        /* Dashboard Mock */
+        .dashboard-mock {
+            margin-top: 4rem;
+            width: 100%;
+            max-width: 1000px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid rgba(184, 233, 134, 0.2);
+            box-shadow:
+                0 0 60px rgba(10, 186, 181, 0.2),
+                0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, rgba(184, 233, 134, 0.1), rgba(10, 186, 181, 0.1));
+            padding: 2rem;
+            border-bottom: 1px solid rgba(184, 233, 134, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .profile-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--tiffany), var(--peridot));
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(10, 186, 181, 0.5);
+        }
+
+        .profile-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .profile-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .dashboard-body {
+            padding: 2rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .dashboard-sidebar {
+            width: 200px;
+            flex-shrink: 0;
+            background: rgba(10, 10, 10, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(184, 233, 134, 0.1);
+        }
+
+        .sidebar-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .integration-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .integration-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem;
+            background: rgba(184, 233, 134, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(184, 233, 134, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .integration-item:hover {
+            background: rgba(184, 233, 134, 0.1);
+            border-color: var(--tiffany);
+        }
+
+        .integration-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--tiffany), var(--peridot));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .integration-name {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .dashboard-main {
+            flex: 1;
+        }
+
+        .memory-blocks {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .memory-card {
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid rgba(184, 233, 134, 0.15);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .memory-card:hover {
+            border-color: var(--tiffany);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(10, 186, 181, 0.2);
+        }
+
+        .memory-card h4 {
+            color: var(--peridot);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .memory-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .productivity-chart {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 2rem 0;
+            height: 200px;
+        }
+
+        .chart-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            align-items: center;
+        }
+
+        .bar-group {
+            display: flex;
+            gap: 4px;
+            align-items: flex-end;
+        }
+
+        .bar {
+            width: 12px;
+            border-radius: 6px 6px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .bar.meetings {
+            background: var(--tiffany);
+        }
+
+        .bar.documents {
+            background: var(--peridot);
+        }
+
+        .bar.todos {
+            background: var(--neon-yellow);
+        }
+
+        .bar.decisions {
+            background: var(--neon-pink);
+        }
+
+        .chart-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Value Cards */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 1200px) {
+            .value-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .value-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(184, 233, 134, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--peridot), var(--tiffany));
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--tiffany);
+            box-shadow: 0 20px 60px rgba(10, 186, 181, 0.3);
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--peridot);
+        }
+
+        .value-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: rgba(26, 26, 26, 0.4);
+        }
+
+        .features-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .feature-group h3 {
+            font-size: 1.8rem;
+            color: var(--tiffany);
+            margin-bottom: 1rem;
+        }
+
+        .feature-group ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .feature-group li {
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .feature-group li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--peridot);
+            font-weight: bold;
+        }
+
+        .feature-screenshot {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid rgba(184, 233, 134, 0.2);
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(10, 186, 181, 0.2);
+            position: sticky;
+            top: 120px;
+        }
+
+        /* Target Users & Use Cases */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .persona-card,
+        .use-case-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(184, 233, 134, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .persona-card::after,
+        .use-case-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--neon-pink), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .persona-card:hover::after,
+        .use-case-card:hover::after {
+            opacity: 0.3;
+        }
+
+        .persona-card:hover,
+        .use-case-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--tiffany);
+            box-shadow: 0 20px 60px rgba(10, 186, 181, 0.3);
+        }
+
+        .persona-card h3,
+        .use-case-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--peridot);
+        }
+
+        .persona-card p,
+        .use-case-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .use-case-card ul {
+            list-style: none;
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .use-case-card li {
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .use-case-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--tiffany);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            text-align: center;
+            padding: 8rem 2rem;
+            background:
+                radial-gradient(circle at center, rgba(184, 233, 134, 0.1) 0%, transparent 70%),
+                radial-gradient(circle at center, rgba(10, 186, 181, 0.1) 0%, transparent 70%);
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--peridot), var(--tiffany));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .final-cta p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section {
+                padding: 3rem 1.5rem;
+            }
+
+            .features-content {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-screenshot {
+                position: static;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .benefit-list {
+                width: 100%;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-body {
+                flex-direction: column;
+            }
+
+            .dashboard-sidebar {
+                width: 100%;
+            }
+
+            .memory-blocks {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 3D Icon Styles */
+        .icon-3d {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--tiffany), var(--peridot));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow:
+                0 10px 30px rgba(10, 186, 181, 0.3),
+                inset 0 -2px 10px rgba(0, 0, 0, 0.2);
+            transform: perspective(500px) rotateY(10deg);
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover .icon-3d,
+        .persona-card:hover .icon-3d {
+            transform: perspective(500px) rotateY(-10deg) scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="logo">
+                <img src="group 1.svg" alt="Supermem Logo">
+                <span class="logo-text">Supermem</span>
+            </a>
+            <button id="waitlist-button" class="cta-button">Sign up for waitlist</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero section">
+        <div class="hero-content">
+            <div class="hero-illustration">
+                <div class="brain-rocket">
+                    <div class="cape"></div>
+                    <div class="rocket">
+                        <div class="rocket-body">
+                            <div class="rocket-window"></div>
+                            <div class="brain-avatar">
+                                <div class="brain-pattern"></div>
+                            </div>
+                        </div>
+                        <div class="rocket-fin rocket-fin-left"></div>
+                        <div class="rocket-fin rocket-fin-right"></div>
+                        <div class="rocket-fire"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="eyebrow">PRIVATE BETA · MEMORY HUB FOR BUILDERS</div>
+            <h1>Supermem — Your Memory, Finally Under Your Control</h1>
+            <p class="hero-subheadline">Your work and life are scattered across apps and LLMs. Supermem pulls everything
+                into one sovereign memory hub — searchable, structured, and actually yours.</p>
+
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <span>Unify knowledge from tools you already use</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <span>Keep sensitive data on-prem / in your own cloud</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <span>Zero-Trust AI solution, hardware & cryptographic guarantees</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <span>Make onboarding, handover, and decisions 10× faster</span>
+                </div>
+            </div>
+
+            <div class="early-bird">Be the first to try Supermem when we open the private beta — and get 50% off if you
+                sign up before 2025.12.31.</div>
+
+            <button class="cta-button" style="font-size: 1.1rem; padding: 1rem 3rem;">Sign up for waitlist</button>
+
+            <!-- Dashboard Mock -->
+            <div class="dashboard-mock">
+                <div class="dashboard-header">
+                    <div class="profile-circle"></div>
+                    <div class="profile-info">
+                        <h3>Your Memory Hub</h3>
+                        <p>Everything in one place</p>
+                    </div>
+                </div>
+                <div class="dashboard-body">
+                    <div class="dashboard-sidebar">
+                        <div class="sidebar-title">Integrations</div>
+                        <div class="integration-list">
+                            <div class="integration-item">
+                                <div class="integration-icon">📧</div>
+                                <div class="integration-name">Gmail</div>
+                            </div>
+                            <div class="integration-item">
+                                <div class="integration-icon">💬</div>
+                                <div class="integration-name">Slack</div>
+                            </div>
+                            <div class="integration-item">
+                                <div class="integration-icon">📝</div>
+                                <div class="integration-name">Notion</div>
+                            </div>
+                            <div class="integration-item">
+                                <div class="integration-icon">📅</div>
+                                <div class="integration-name">Calendar</div>
+                            </div>
+                            <div class="integration-item">
+                                <div class="integration-icon">📁</div>
+                                <div class="integration-name">Drive</div>
+                            </div>
+                            <div class="integration-item">
+                                <div class="integration-icon">🎯</div>
+                                <div class="integration-name">Jira</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-main">
+                        <div class="productivity-chart">
+                            <div class="chart-bar">
+                                <div class="bar-group">
+                                    <div class="bar meetings" style="height: 60px;"></div>
+                                    <div class="bar documents" style="height: 90px;"></div>
+                                    <div class="bar todos" style="height: 45px;"></div>
+                                    <div class="bar decisions" style="height: 30px;"></div>
+                                </div>
+                                <div class="chart-label">Mon</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-group">
+                                    <div class="bar meetings" style="height: 80px;"></div>
+                                    <div class="bar documents" style="height: 70px;"></div>
+                                    <div class="bar todos" style="height: 55px;"></div>
+                                    <div class="bar decisions" style="height: 40px;"></div>
+                                </div>
+                                <div class="chart-label">Tue</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-group">
+                                    <div class="bar meetings" style="height: 70px;"></div>
+                                    <div class="bar documents" style="height: 100px;"></div>
+                                    <div class="bar todos" style="height: 50px;"></div>
+                                    <div class="bar decisions" style="height: 35px;"></div>
+                                </div>
+                                <div class="chart-label">Wed</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-group">
+                                    <div class="bar meetings" style="height: 50px;"></div>
+                                    <div class="bar documents" style="height: 85px;"></div>
+                                    <div class="bar todos" style="height: 95px;"></div>
+                                    <div class="bar decisions" style="height: 50px;"></div>
+                                </div>
+                                <div class="chart-label">Thu</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-group">
+                                    <div class="bar meetings" style="height: 65px;"></div>
+                                    <div class="bar documents" style="height: 75px;"></div>
+                                    <div class="bar todos" style="height: 85px;"></div>
+                                    <div class="bar decisions" style="height: 45px;"></div>
+                                </div>
+                                <div class="chart-label">Fri</div>
+                            </div>
+                        </div>
+
+                        <div class="memory-blocks">
+                            <div class="memory-card">
+                                <h4>📋 Priorities of This Month</h4>
+                                <p>Launch Q4 product feature by Nov 30</p>
+                            </div>
+                            <div class="memory-card">
+                                <h4>⚡ Key Achievements Yesterday</h4>
+                                <p>Successfully launched beta version ahead of schedule</p>
+                            </div>
+                            <div class="memory-card">
+                                <h4>✅ Decisions Made Yesterday</h4>
+                                <p>Approved design system v2.0 rollout</p>
+                            </div>
+                            <div class="memory-card">
+                                <h4>🎯 Decisions To Make Today</h4>
+                                <p>Choose between vendor A or B for infrastructure</p>
+                            </div>
+                            <div class="memory-card">
+                                <h4>📝 To-Do</h4>
+                                <p>Review PRD for new feature, prepare slides for board meeting</p>
+                            </div>
+                            <div class="memory-card">
+                                <h4>🌱 Personal Growth</h4>
+                                <p>Completed 'Effective Delegation' course on LinkedIn Learning</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Value Section -->
+    <section class="section">
+        <div class="section-header">
+            <h2>Why Supermem?</h2>
+            <p>Supermem is for people whose brains are full, whose tools are messy, and whose work is too important to
+                lose in random folders and chat threads.</p>
+        </div>
+
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="icon-3d">🔗</div>
+                <h3>One memory, not fifty silos</h3>
+                <p>Stop hunting across Slack, Notion, email, and docs. Supermem turns all your tools into a single,
+                    persistent memory layer.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon-3d">🔒</div>
+                <h3>You own the memory, not the model</h3>
+                <p>On-prem / VPC-friendly, privacy-first, zero-trust, hardware & cryptographic guaranteed. Your data
+                    isn't a training resource — it's your asset.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon-3d">🧠</div>
+                <h3>Context on tap, for every decision</h3>
+                <p>Surface past decisions, key docs, and relevant conversations right when you need them — in one
+                    search, one view.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon-3d">🚀</div>
+                <h3>Effortless onboarding & handover</h3>
+                <p>New team member or new owner for a project? Share a project's memory in minutes instead of forwarding
+                    37 links.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Features Section -->
+    <section class="section features-section">
+        <div class="section-header">
+            <h2>What Supermem Can Do</h2>
+            <p>Supermem is a visual memory hub that sits on top of your tools and turns raw data into living context.
+            </p>
+        </div>
+
+        <div class="features-content">
+            <div class="features-list">
+                <div class="feature-group">
+                    <h3>Memory Hub Dashboard</h3>
+                    <ul>
+                        <li>See your week at a glance: meetings, docs created, to-dos completed, key decisions made</li>
+                        <li>Visual productivity bars per day (meetings, docs, to-dos, decisions)</li>
+                        <li>Switch between current week, month, and quarter views</li>
+                    </ul>
+                </div>
+
+                <div class="feature-group">
+                    <h3>Unified Search</h3>
+                    <ul>
+                        <li>One search bar for emails, docs, chats, tasks, and decisions</li>
+                        <li>Ask questions like "What did we decide about pricing last month?" or "Show me all docs
+                            related to the ACME rollout"</li>
+                    </ul>
+                </div>
+
+                <div class="feature-group">
+                    <h3>Memory Blocks</h3>
+                    <ul>
+                        <li><strong>About You</strong> — your role, scope, decision style, strengths</li>
+                        <li><strong>Monthly Priorities</strong> — what actually matters this month</li>
+                        <li><strong>Yesterday's Highlights</strong> — key achievements and decisions</li>
+                        <li><strong>Decisions To Make Today</strong> — visible, not buried in chat</li>
+                        <li><strong>To-Dos</strong> — sorted by date and importance, with status</li>
+                        <li><strong>Sparks</strong> — insights extracted from your integrated tools</li>
+                        <li><strong>Personal Growth</strong> — reflections, lessons, patterns over time</li>
+                    </ul>
+                </div>
+
+                <div class="feature-group">
+                    <h3>Deep Integrations</h3>
+                    <ul>
+                        <li>Connect tools like Slack, Notion, Google Drive, Gmail, Calendar, Jira, and more</li>
+                        <li>Supermem ingests, links, and keeps context up to date automatically</li>
+                    </ul>
+                </div>
+
+                <div class="feature-group">
+                    <h3>Privacy & Control</h3>
+                    <ul>
+                        <li>On-prem / private cloud options</li>
+                        <li>Zero-Trust AI solution, hardware & cryptographic guarantees</li>
+                        <li>Private vs shared memory spaces for you and your team</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="feature-screenshot">
+                <div
+                    style="background: rgba(10, 10, 10, 0.8); border-radius: 16px; overflow: hidden; border: 1px solid rgba(184, 233, 134, 0.3);">
+                    <!-- Screenshot Header -->
+                    <div
+                        style="background: linear-gradient(135deg, rgba(184, 233, 134, 0.15), rgba(10, 186, 181, 0.15)); padding: 1.5rem; border-bottom: 1px solid rgba(184, 233, 134, 0.2); display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--tiffany), var(--peridot)); border-radius: 50%; box-shadow: 0 0 20px rgba(10, 186, 181, 0.4);">
+                        </div>
+                        <div>
+                            <div
+                                style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.2rem;">
+                                Memory Hub</div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">john@acme.com</div>
+                        </div>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div style="padding: 1.5rem; border-bottom: 1px solid rgba(184, 233, 134, 0.1);">
+                        <div
+                            style="background: rgba(26, 26, 26, 0.6); border: 1px solid rgba(184, 233, 134, 0.2); border-radius: 12px; padding: 0.8rem 1.2rem; display: flex; align-items: center; gap: 0.8rem;">
+                            <span style="color: var(--tiffany);">🔍</span>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">Search your memory...</span>
+                        </div>
+                    </div>
+
+                    <!-- Mini Memory Blocks -->
+                    <div style="padding: 1.5rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div
+                                style="background: rgba(26, 26, 26, 0.5); border: 1px solid rgba(184, 233, 134, 0.15); border-radius: 12px; padding: 1rem;">
+                                <div
+                                    style="color: var(--peridot); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">
+                                    📋 Priorities</div>
+                                <div style="color: var(--text-secondary); font-size: 0.75rem; line-height: 1.4;">Launch
+                                    Q4 feature by Nov 30</div>
+                            </div>
+                            <div
+                                style="background: rgba(26, 26, 26, 0.5); border: 1px solid rgba(184, 233, 134, 0.15); border-radius: 12px; padding: 1rem;">
+                                <div
+                                    style="color: var(--peridot); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">
+                                    ⚡ Yesterday</div>
+                                <div style="color: var(--text-secondary); font-size: 0.75rem; line-height: 1.4;">Beta
+                                    launch completed</div>
+                            </div>
+                            <div
+                                style="background: rgba(26, 26, 26, 0.5); border: 1px solid rgba(184, 233, 134, 0.15); border-radius: 12px; padding: 1rem;">
+                                <div
+                                    style="color: var(--peridot); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">
+                                    🎯 Today</div>
+                                <div style="color: var(--text-secondary); font-size: 0.75rem; line-height: 1.4;">Vendor
+                                    selection needed</div>
+                            </div>
+                            <div
+                                style="background: rgba(26, 26, 26, 0.5); border: 1px solid rgba(184, 233, 134, 0.15); border-radius: 12px; padding: 1rem;">
+                                <div
+                                    style="color: var(--peridot); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">
+                                    💡 Sparks</div>
+                                <div style="color: var(--text-secondary); font-size: 0.75rem; line-height: 1.4;">AI
+                                    search opportunity</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mini Chart -->
+                    <div style="padding: 1.5rem; padding-top: 0;">
+                        <div
+                            style="display: flex; gap: 0.8rem; align-items: flex-end; height: 80px; justify-content: space-around;">
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
+                                <div style="display: flex; gap: 3px; align-items: flex-end;">
+                                    <div
+                                        style="width: 8px; height: 35px; background: var(--tiffany); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 50px; background: var(--peridot); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 25px; background: var(--neon-yellow); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.65rem; color: var(--text-secondary);">Mon</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
+                                <div style="display: flex; gap: 3px; align-items: flex-end;">
+                                    <div
+                                        style="width: 8px; height: 45px; background: var(--tiffany); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 40px; background: var(--peridot); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 30px; background: var(--neon-yellow); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.65rem; color: var(--text-secondary);">Tue</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
+                                <div style="display: flex; gap: 3px; align-items: flex-end;">
+                                    <div
+                                        style="width: 8px; height: 40px; background: var(--tiffany); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 55px; background: var(--peridot); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 28px; background: var(--neon-yellow); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.65rem; color: var(--text-secondary);">Wed</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
+                                <div style="display: flex; gap: 3px; align-items: flex-end;">
+                                    <div
+                                        style="width: 8px; height: 30px; background: var(--tiffany); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 48px; background: var(--peridot); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 52px; background: var(--neon-yellow); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.65rem; color: var(--text-secondary);">Thu</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
+                                <div style="display: flex; gap: 3px; align-items: flex-end;">
+                                    <div
+                                        style="width: 8px; height: 38px; background: var(--tiffany); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 42px; background: var(--peridot); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 46px; background: var(--neon-yellow); border-radius: 4px 4px 0 0;">
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.65rem; color: var(--text-secondary);">Fri</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Target Users Section -->
+    <section class="section">
+        <div class="section-header">
+            <h2>Who Supermem Is For</h2>
+            <p>Supermem is built for people whose decisions move money, valuations, and relationships.</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="persona-card">
+                <div class="icon-3d">👔</div>
+                <h3>Founders & CXOs</h3>
+                <p>Track key decisions, GTM, hiring, product direction, and investor conversations in one place — and
+                    actually remember what you promised.</p>
+            </div>
+            <div class="persona-card">
+                <div class="icon-3d">💼</div>
+                <h3>Investors</h3>
+                <p>Keep a living memory of founders, deals, due diligence, and portfolio updates. No more "Who sent me
+                    that deck?" moments.</p>
+            </div>
+            <div class="persona-card">
+                <div class="icon-3d">🎨</div>
+                <h3>Consultants & Agencies</h3>
+                <p>Maintain a living memory for each client: goals, requirements, deliverables, feedback, and decisions
+                    — so context is always billable and never lost.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <div class="section-header">
+            <h2>How Supermem Fits Into Your Day</h2>
+        </div>
+
+        <div class="cards-grid">
+            <div class="use-case-card">
+                <h3>Founder Morning Review</h3>
+                <ul>
+                    <li>Start your day in Supermem's Home dashboard</li>
+                    <li>See yesterday's key decisions, today's decisions, and this month's priorities in one view</li>
+                    <li>Click any item to jump back into the original Slack/Notion/Gmail thread instantly</li>
+                </ul>
+            </div>
+            <div class="use-case-card">
+                <h3>New Hire Onboarding</h3>
+                <ul>
+                    <li>Invite a new PM or analyst and share a Project Memory instead of a giant Notion doc</li>
+                    <li>They see past decisions, core docs, key stakeholders, and recent "sparks" from integrated tools
+                    </li>
+                    <li>Onboard in hours, not weeks — with less time wasted repeating context</li>
+                </ul>
+            </div>
+            <div class="use-case-card">
+                <h3>Never Miss a Follow-up</h3>
+                <ul>
+                    <li>Supermem tracks meetings, emails, intros, and notes across tools</li>
+                    <li>Always know who you need to follow up with, when you last talked, and what was promised</li>
+                    <li>See a prioritized list of investors/customers who need a touchpoint — so you don't lose deals
+                        just because you forgot</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <h2>Ready to Give Your Work a Real Memory?</h2>
+        <p>Join the private beta and get 50% off if you sign up before 2025.12.31.</p>
+        <button class="cta-button" style="font-size: 1.2rem; padding: 1.2rem 3.5rem;">Sign up for waitlist</button>
+    </section>
+
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', () => {
+                window.location.href = 'waitlist.html';
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.value-card, .persona-card, .use-case-card, .memory-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // document.getElementById('waitlist-button').addEventListener('click', () => {
+          
+        // });
+    </script>
+</body>
+
+</html>
