@@ -920,6 +920,348 @@
         .persona-card:hover .icon-3d {
             transform: perspective(500px) rotateY(-10deg) scale(1.1);
         }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        /* Modal Content */
+        .modal {
+            background: #1a1a1a;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(168, 255, 158, 0.1);
+            border: 1px solid #2a2a2a;
+        }
+
+        /* Close Button */
+        .modal-close-btn {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: all 0.3s ease;
+            line-height: 1;
+            font-weight: 300;
+        }
+
+        .modal-close-btn:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .modal-close-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            display: flex;
+            padding: 2rem 4rem 1rem 2rem;
+            gap: 0.5rem;
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.completed {
+            background: linear-gradient(90deg, #6ee7b7, #a8ff9e);
+        }
+
+        .progress-step.active {
+            background: linear-gradient(90deg, #6ee7b7, #a8ff9e);
+            opacity: 0.6;
+        }
+
+        /* Modal Body */
+        .modal-body {
+            padding: 2rem 2rem 3rem;
+            overflow-y: auto;
+            max-height: calc(90vh - 100px);
+        }
+
+        .question-container {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .question-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #a8ff9e 0%, #6ee7b7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        input[type="email"],
+        input[type="url"],
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            background: #0a0a0a;
+            border: 2px solid #333;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input[type="email"]:focus,
+        input[type="url"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #6ee7b7;
+            background: #111;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .radio-option,
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 1.2rem;
+            background: #0a0a0a;
+            border: 2px solid #333;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-option:hover,
+        .checkbox-option:hover {
+            border-color: #6ee7b7;
+            background: #111;
+        }
+
+        .radio-option.selected,
+        .checkbox-option.selected {
+            border-color: #6ee7b7;
+            background: rgba(110, 231, 183, 0.1);
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 1rem;
+            width: 20px;
+            height: 20px;
+            accent-color: #6ee7b7;
+            cursor: pointer;
+        }
+
+        .option-label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .conditional-question {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: #0a0a0a;
+            border-radius: 12px;
+            border: 1px solid #333;
+            display: none;
+        }
+
+        .conditional-question.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .conditional-question .question-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Buttons */
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-back {
+            background: #2a2a2a;
+            color: #fff;
+        }
+
+        .btn-back:hover {
+            background: #333;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #6ee7b7, #a8ff9e);
+            color: #000;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(110, 231, 183, 0.3);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Celebration Screen */
+        .celebration {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .celebration.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .celebration-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #a8ff9e 0%, #6ee7b7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .celebration-message {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .emoji-float {
+            position: absolute;
+            font-size: 3rem;
+            animation: floatUp 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-400px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .close-modal {
+            background: #2a2a2a;
+            color: #fff;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .close-modal:hover {
+            background: #333;
+        }
+
+        @media (max-width: 768px) {
+            .modal {
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+
+            .question-title {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 
@@ -1426,11 +1768,394 @@
         <button class="cta-button" style="font-size: 1.2rem; padding: 1.2rem 3.5rem;">Sign up for waitlist</button>
     </section>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <!-- Close Button -->
+            <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body" id="modalBody">
+                <!-- Question 1: Email & Website -->
+                <div class="question-container active" data-step="1">
+                    <h2 class="question-title">Let's get started</h2>
+                    <div class="input-group">
+                        <label for="email">Your company email *</label>
+                        <input type="email" id="email" placeholder="you@company.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="website">Company website (optional)</label>
+                        <input type="url" id="website" placeholder="https://yourcompany.com">
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-next" onclick="nextStep()">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 2: Building For & Company Size -->
+                <div class="question-container" data-step="2">
+                    <h2 class="question-title">Who are you building this for?</h2>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio(this, 'myself')">
+                            <input type="radio" name="buildingFor" value="myself" id="myself">
+                            <label class="option-label" for="myself">Myself</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio(this, 'company')">
+                            <input type="radio" name="buildingFor" value="company" id="company">
+                            <label class="option-label" for="company">My company</label>
+                        </div>
+                    </div>
+
+                    <!-- Conditional Question: Company Size -->
+                    <div class="conditional-question" id="companySizeQuestion">
+                        <h3 class="question-title">What's the size of your company? *</h3>
+                        <div class="radio-group">
+                            <div class="radio-option" onclick="selectRadio(this, '1-10')">
+                                <input type="radio" name="companySize" value="1-10" id="size1">
+                                <label class="option-label" for="size1">1-10 employees</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio(this, '11-50')">
+                                <input type="radio" name="companySize" value="11-50" id="size2">
+                                <label class="option-label" for="size2">11-50 employees</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio(this, '51-200')">
+                                <input type="radio" name="companySize" value="51-200" id="size3">
+                                <label class="option-label" for="size3">51-200 employees</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio(this, '201-500')">
+                                <input type="radio" name="companySize" value="201-500" id="size4">
+                                <label class="option-label" for="size4">201-500 employees</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio(this, '500+')">
+                                <input type="radio" name="companySize" value="500+" id="size5">
+                                <label class="option-label" for="size5">More than 500 employees</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="btn btn-back" onclick="prevStep()">Back</button>
+                        <button class="btn btn-next" onclick="nextStep()">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 3: Use Cases -->
+                <div class="question-container" data-step="3">
+                    <h2 class="question-title">What use cases do you care about most?</h2>
+                    <p style="color: #a0a0a0; margin-bottom: 1.5rem; font-size: 0.9rem;">Select all that apply</p>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="usecase1" value="onboarding">
+                            <label class="option-label" for="usecase1">Knowledge transfer for employee onboarding and
+                                offboarding</label>
+                        </div>
+                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="usecase2" value="search">
+                            <label class="option-label" for="usecase2">Unified and accurate enterprise search</label>
+                        </div>
+                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="usecase3" value="support">
+                            <label class="option-label" for="usecase3">Customer service or internal tickets
+                                support</label>
+                        </div>
+                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="usecase4" value="drafting">
+                            <label class="option-label" for="usecase4">Auto-drafting responses (internal &
+                                external)</label>
+                        </div>
+                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="usecase5" value="agent">
+                            <label class="option-label" for="usecase5">Agent-driven task execution such as meeting
+                                scheduling</label>
+                        </div>
+                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="usecase6" value="automation">
+                            <label class="option-label" for="usecase6">Automated document and project updates</label>
+                        </div>
+                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="usecase7" value="other">
+                            <label class="option-label" for="usecase7">Others</label>
+                        </div>
+                    </div>
+                    <div class="input-group" id="otherUseCaseInput" style="margin-top: 1rem; display: none;">
+                        <input type="text" id="otherUseCase" placeholder="Please specify...">
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="btn btn-back" onclick="prevStep()">Back</button>
+                        <button class="btn btn-next" onclick="submitForm()">Submit</button>
+                    </div>
+                </div>
+
+                <!-- Celebration Screen -->
+                <div class="celebration" id="celebration">
+                    <h2 class="celebration-title">Congrats! 🎉</h2>
+                    <p class="celebration-message">
+                        You are now on our waitlist.<br>
+                        We'll inform you when the private beta is ready.
+                    </p>
+                    <button class="close-modal" onclick="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Smooth scroll for navigation
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        // Get 'from' parameter from URL query string for ad tracking
+        function getFromParameter() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('from') || null;
+        }
+
+        const fromSource = getFromParameter();
+
+        // Log the source for debugging
+        if (fromSource) {
+            console.log('Traffic source:', fromSource);
+        }
+
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            resetForm();
+        }
+
+        function updateProgress() {
+            const steps = document.querySelectorAll('.progress-step');
+            steps.forEach((step, index) => {
+                if (index < currentStep - 1) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                } else if (index === currentStep - 1) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('completed', 'active');
+                }
+            });
+        }
+
+        function showStep(stepNumber) {
+            document.querySelectorAll('.question-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            document.querySelector(`[data-step="${stepNumber}"]`).classList.add('active');
+            updateProgress();
+        }
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function nextStep() {
+            // Validation for current step
+            if (currentStep === 1) {
+                const email = document.getElementById('email').value;
+                if (!email || !validateEmail(email)) {
+                    alert('Please enter a valid company email');
+                    return;
+                }
+            }
+
+            if (currentStep === 2) {
+                const buildingFor = document.querySelector('input[name="buildingFor"]:checked');
+                if (!buildingFor) {
+                    alert('Please select who you are building this for');
+                    return;
+                }
+
+                // If building for company, check if company size is selected
+                if (buildingFor.value === 'company') {
+                    const companySize = document.querySelector('input[name="companySize"]:checked');
+                    if (!companySize) {
+                        alert('Please select your company size');
+                        return;
+                    }
+                }
+            }
+
+            currentStep++;
+            showStep(currentStep);
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function selectRadio(element, value) {
+            const radioInput = element.querySelector('input[type="radio"]');
+            radioInput.checked = true;
+
+            // Remove selected class from siblings
+            const parent = element.parentElement;
+            parent.querySelectorAll('.radio-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+
+            // Show/hide company size question
+            if (radioInput.name === 'buildingFor') {
+                const companySizeQuestion = document.getElementById('companySizeQuestion');
+                if (value === 'company') {
+                    companySizeQuestion.classList.add('active');
+                } else {
+                    companySizeQuestion.classList.remove('active');
+                    // Clear company size selection
+                    document.querySelectorAll('input[name="companySize"]').forEach(input => {
+                        input.checked = false;
+                    });
+                    document.querySelectorAll('#companySizeQuestion .radio-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                }
+            }
+        }
+
+        function toggleCheckbox(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('selected');
+
+            // Show/hide "other" input
+            if (checkbox.id === 'usecase7') {
+                const otherInput = document.getElementById('otherUseCaseInput');
+                if (checkbox.checked) {
+                    otherInput.style.display = 'block';
+                } else {
+                    otherInput.style.display = 'none';
+                    document.getElementById('otherUseCase').value = '';
+                }
+            }
+        }
+
+        async function submitForm() {
+            // Validate at least one checkbox is selected
+            const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked');
+            if (checkboxes.length === 0) {
+                alert('Please select at least one use case');
+                return;
+            }
+
+            // If "Others" is selected, check if text is provided
+            const otherCheckbox = document.getElementById('usecase7');
+            if (otherCheckbox.checked) {
+                const otherText = document.getElementById('otherUseCase').value.trim();
+                if (!otherText) {
+                    alert('Please specify your use case');
+                    return;
+                }
+            }
+
+            // Collect form data
+            const formData = {
+                email: document.getElementById('email').value,
+                website: document.getElementById('website').value,
+                buildingFor: document.querySelector('input[name="buildingFor"]:checked').value,
+                companySize: document.querySelector('input[name="companySize"]:checked')?.value || null,
+                useCases: Array.from(checkboxes).map(cb => cb.value),
+                otherUseCase: otherCheckbox.checked ? document.getElementById('otherUseCase').value.trim() : null,
+                from: fromSource  // Add traffic source for ad tracking
+            };
+
+            // Submit to server
+            try {
+                const response = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    console.log('Submission successful:', result);
+                } else {
+                    console.error('Submission failed:', result.message);
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                // Continue to show celebration even if submission fails
+            }
+
+            // Hide all questions
+            document.querySelectorAll('.question-container').forEach(container => {
+                container.classList.remove('active');
+            });
+
+            // Show celebration
+            document.getElementById('celebration').classList.add('active');
+
+            // Hide progress bar
+            document.getElementById('progressBar').style.display = 'none';
+
+            // Trigger emoji animation
+            createEmojiAnimation();
+        }
+
+        function createEmojiAnimation() {
+            const emojis = ['🍾', '😊', '🔔', '🎉', '✨', '🎊'];
+            const modal = document.querySelector('.modal');
+
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'emoji-float';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + '%';
+                    emoji.style.animationDelay = Math.random() * 0.5 + 's';
+                    emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    modal.appendChild(emoji);
+
+                    setTimeout(() => emoji.remove(), 3500);
+                }, i * 200);
+            }
+        }
+
+        function resetForm() {
+            currentStep = 1;
+            showStep(1);
+            document.getElementById('progressBar').style.display = 'flex';
+            document.getElementById('celebration').classList.remove('active');
+
+            // Clear all inputs
+            document.getElementById('email').value = '';
+            document.getElementById('website').value = '';
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            document.querySelectorAll('input[type="checkbox"]').forEach(input => {
+                input.checked = false;
+            });
+            document.querySelectorAll('.radio-option, .checkbox-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.getElementById('companySizeQuestion').classList.remove('active');
+            document.getElementById('otherUseCaseInput').style.display = 'none';
+            document.getElementById('otherUseCase').value = '';
+        }
+
+        // Open modal when clicking CTA buttons
         document.querySelectorAll('.cta-button').forEach(button => {
             button.addEventListener('click', () => {
-                window.location.href = 'waitlist.html';
+                openModal();
             });
         });
 
@@ -1456,10 +2181,6 @@
             card.style.transition = 'all 0.6s ease';
             observer.observe(card);
         });
-
-        // document.getElementById('waitlist-button').addEventListener('click', () => {
-          
-        // });
     </script>
 </body>
 
