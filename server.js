@@ -29,6 +29,32 @@ app.use(express.static(__dirname));
 // Endpoint to handle form submissions
 app.post('/api/waitlist', async (req, res) => {
     try {
+        const email = req.body.email;
+
+        // Check if email already exists
+        const { data: existingSubmission, error: checkError } = await supabase
+            .from('waitlist_submissions')
+            .select('email')
+            .eq('email', email)
+            .single();
+
+        if (checkError && checkError.code !== 'PGRST116') {
+            // PGRST116 means no rows found, which is fine
+            // Any other error should be thrown
+            throw checkError;
+        }
+
+        // If email already exists, return success without inserting
+        if (existingSubmission) {
+            console.log('ℹ️  Email already exists:', email);
+            return res.json({
+                success: true,
+                message: 'Successfully added to waitlist',
+                alreadyExists: true
+            });
+        }
+
+        // Email doesn't exist, proceed with insertion
         const submission = {
             email: req.body.email,
             website: req.body.website,
@@ -92,6 +118,11 @@ app.get('/api/submissions', async (req, res) => {
             error: error.message
         });
     }
+});
+
+// Success page route
+app.get('/success', (req, res) => {
+    res.sendFile(__dirname + '/success.html');
 });
 
 // Health check endpoint
