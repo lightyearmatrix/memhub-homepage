@@ -27,9 +27,16 @@ jobs:
             echo "📦 Pulling latest code..."
             git pull origin main
 
-            # 重启 Docker 容器
-            echo "🔄 Restarting Docker containers..."
-            docker compose restart supermem-waitlist
+            # 重新构建镜像并重启容器
+            echo "🔨 Rebuilding Docker image..."
+            docker compose build --no-cache supermem-waitlist
+
+            echo "🔄 Recreating and starting container..."
+            docker compose up -d supermem-waitlist
+
+            # 清理未使用的镜像以释放空间
+            echo "🧹 Cleaning up unused images..."
+            docker image prune -f
 
             # 显示容器状态
             echo "✅ Deployment complete! Container status:"
