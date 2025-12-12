@@ -107,8 +107,9 @@
         }
 
         .logo img {
-            height: 40px;
+            height: 2.5rem;
             width: auto;
+            display: block;
         }
 
         .logo-text {
@@ -917,6 +918,7 @@
 
         /* Responsive - Mobile */
         @media (max-width: 768px) {
+
             /* Fix overflow issues */
             body {
                 max-width: 100vw;
@@ -938,7 +940,7 @@
             }
 
             .logo img {
-                height: 32px;
+                height: 1.4rem;
             }
 
             .logo-text {
@@ -1209,7 +1211,7 @@
             }
 
             .logo img {
-                height: 28px;
+                height: 1.2rem;
             }
 
             .logo-text {
@@ -2484,11 +2486,15 @@
                         </div>
                         <div class="checkbox-option" onclick="toggleCheckbox(this)">
                             <input type="checkbox" id="usecase6" value="automation">
-                            <label class="option-label" for="usecase6">Automated document and project updates</label>
+                            <label class="option-label" for="usecase6">Co-pilot over codebase & docs</label>
                         </div>
                         <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" id="usecase7" value="other">
-                            <label class="option-label" for="usecase7">Others</label>
+                            <input type="checkbox" id="usecase7" value="bi">
+                            <label class="option-label" for="usecase7">Automated Business Intelligence</label>
+                        </div>
+                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="usecase8" value="other">
+                            <label class="option-label" for="usecase8">Others</label>
                         </div>
                     </div>
                     <div class="input-group" id="otherUseCaseInput" style="margin-top: 1rem; display: none;">
@@ -2640,7 +2646,7 @@
             element.classList.toggle('selected');
 
             // Show/hide "other" input
-            if (checkbox.id === 'usecase7') {
+            if (checkbox.id === 'usecase8') {
                 const otherInput = document.getElementById('otherUseCaseInput');
                 if (checkbox.checked) {
                     otherInput.style.display = 'block';
@@ -2660,7 +2666,7 @@
             }
 
             // If "Others" is selected, check if text is provided
-            const otherCheckbox = document.getElementById('usecase7');
+            const otherCheckbox = document.getElementById('usecase8');
             if (otherCheckbox.checked) {
                 const otherText = document.getElementById('otherUseCase').value.trim();
                 if (!otherText) {
