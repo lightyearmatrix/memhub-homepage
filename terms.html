@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Data Usage & Processing Terms - Supermem</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --peridot: #B8E986;
+            --tiffany: #0ABAB5;
+            --neon-pink: #FF10F0;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(184, 233, 134, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(10, 186, 181, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 16, 240, 0.03) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(184, 233, 134, 0.1);
+            padding: 1.5rem 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 2.75rem;
+            width: auto;
+            display: block;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--peridot), var(--tiffany));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--peridot), var(--tiffany), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .content {
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid rgba(184, 233, 134, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--peridot);
+            margin: 2.5rem 0 1.25rem 0;
+            padding-top: 1rem;
+        }
+
+        h2:first-child {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--tiffany);
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        strong {
+            color: var(--peridot);
+            font-weight: 600;
+        }
+
+        code {
+            background: rgba(184, 233, 134, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--peridot);
+        }
+
+        blockquote {
+            border-left: 3px solid var(--tiffany);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(184, 233, 134, 0.3), transparent);
+            margin: 2rem 0;
+        }
+
+        .contact-info {
+            background: rgba(10, 186, 181, 0.1);
+            border: 1px solid rgba(10, 186, 181, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info a {
+            color: var(--tiffany);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            border-top: 1px solid rgba(184, 233, 134, 0.1);
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--peridot);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo img {
+                height: 2.25rem;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            main {
+                padding: 3rem 1.5rem;
+            }
+
+            .content {
+                padding: 2rem 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.125rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 2rem;
+            }
+
+            .logo-text {
+                font-size: 1.3rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+
+            .content {
+                padding: 1.5rem 1rem;
+            }
+
+            ul, ol {
+                margin-left: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="/" class="logo">
+                <img src="Logo_centred.svg" alt="Supermem Logo">
+                <span class="logo-text">Supermem</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>Data Usage & Processing Terms</h1>
+                <p class="last-updated">Last Updated: December 30, 2025</p>
+            </div>
+
+            <div class="content">
+                <h2>1. Definitions</h2>
+
+                <p><strong>1.1 "User Data"</strong> refers to all data that the user provides, authorizes access to, or that is synchronized from third-party platforms (including but not limited to Notion, Slack, Google Workspace, Email, Calendar, IM tools) through the use of the Service, including but not limited to text, files, messages, metadata, timestamps, and any derived or processed content.</p>
+
+                <p><strong>1.2 "Processing"</strong> means any operation performed on User Data, whether automated or not, including but not limited to collection, storage, parsing, structuring, indexing, analysis, summarization, retrieval, deletion, or export.</p>
+
+                <p><strong>1.3 "Service"</strong> refers to the AI-powered memory, knowledge management, data aggregation, and related software and services provided by the Company.</p>
+
+                <hr>
+
+                <h2>2. Data Ownership</h2>
+
+                <p><strong>2.1</strong> Users retain <strong>full ownership</strong> of their User Data.</p>
+
+                <p><strong>2.2</strong> The Company <strong>does not claim</strong> any ownership, intellectual property rights, or derivative rights over the User Data itself.</p>
+
+                <p><strong>2.3</strong> Users grant the Company a <strong>limited, revocable, non-exclusive license</strong> to process User Data solely for the purpose of providing the Service in accordance with these Terms and user instructions.</p>
+
+                <hr>
+
+                <h2>3. Purpose and Scope of Data Use</h2>
+
+                <p>The Company processes User Data <strong>only to the extent necessary</strong> for the following purposes:</p>
+
+                <h3>3.1 Core Service Functionality</h3>
+                <ul>
+                    <li>Data synchronization, storage, indexing, and search</li>
+                    <li>Generation of to-do items, summaries, meeting notes, and memory records</li>
+                    <li>Conflict detection, timeline aggregation, deduplication, and merging</li>
+                </ul>
+
+                <h3>3.2 User-Initiated AI Processing</h3>
+                <ul>
+                    <li>Summarization, structuring, and tagging</li>
+                    <li>Analysis, review, or Q&A explicitly requested by the user</li>
+                </ul>
+
+                <h3>3.3 Service Reliability and Security</h3>
+                <ul>
+                    <li>Logging and debugging</li>
+                    <li>Abuse prevention, attack detection, and system security</li>
+                </ul>
+
+                <hr>
+
+                <h2>4. AI and Model Usage</h2>
+
+                <p><strong>4.1</strong> User Data is processed <strong>solely to provide AI inference and functionality for the individual user</strong>.</p>
+
+                <p><strong>4.2 By default, User Data is not used to train general-purpose AI models.</strong></p>
+
+                <p><strong>4.3</strong> If anonymized or de-identified data is used in the future to improve models or services, the Company will:</p>
+                <ul>
+                    <li>Provide prior notice</li>
+                    <li>Offer an explicit opt-in mechanism</li>
+                    <li>Ensure no impact on users who do not opt in</li>
+                </ul>
+
+                <hr>
+
+                <h2>5. Third-Party Data Sources and Authorization</h2>
+
+                <p><strong>5.1</strong> When users authorize the Service to access third-party platforms via OAuth or other methods, users represent that they have the lawful right to grant such access.</p>
+
+                <p><strong>5.2</strong> The Company accesses and processes third-party data <strong>only within the scope of the authorization granted</strong> and in compliance with applicable third-party platform policies.</p>
+
+                <p><strong>5.3</strong> Users may revoke third-party access at any time, after which the Company will cease further synchronization of the relevant data.</p>
+
+                <hr>
+
+                <h2>6. Data Storage and Security</h2>
+
+                <p><strong>6.1</strong> The Company implements reasonable technical and organizational measures to protect User Data, including but not limited to:</p>
+                <ul>
+                    <li>Encryption in transit and at rest</li>
+                    <li>Access control and permission isolation</li>
+                    <li>Least-privilege access principles</li>
+                    <li>Periodic security reviews</li>
+                </ul>
+
+                <p><strong>6.2</strong> User Data is stored on secure cloud infrastructure. Storage locations may vary depending on service deployment and availability.</p>
+
+                <hr>
+
+                <h2>7. Data Retention and Deletion</h2>
+
+                <p><strong>7.1</strong> Users may, at any time, through product features or written request:</p>
+                <ul>
+                    <li>Export their User Data</li>
+                    <li>Delete part or all of their User Data</li>
+                </ul>
+
+                <p><strong>7.2</strong> Upon data deletion or service termination:</p>
+                <ul>
+                    <li>The Company will delete User Data within a reasonable timeframe</li>
+                    <li>Except where retention is required by applicable law</li>
+                </ul>
+
+                <hr>
+
+                <h2>8. Data Sharing and Disclosure</h2>
+
+                <p><strong>8.1</strong> The Company <strong>does not</strong> sell, rent, or trade User Data to third parties.</p>
+
+                <p><strong>8.2</strong> User Data may be disclosed only in the following circumstances:</p>
+                <ul>
+                    <li>Upon explicit user instruction or authorization</li>
+                    <li>To infrastructure or service providers strictly necessary to deliver the Service</li>
+                    <li>Where required by law, regulation, or lawful governmental request</li>
+                </ul>
+
+                <hr>
+
+                <h2>9. Compliance and Cross-Border Transfers</h2>
+
+                <p><strong>9.1</strong> The Company is committed to complying with applicable data protection laws and regulations, including but not limited to GDPR and CCPA, where applicable.</p>
+
+                <p><strong>9.2</strong> Where cross-border data transfers occur, appropriate lawful safeguards will be implemented.</p>
+
+                <hr>
+
+                <h2>10. User Responsibilities</h2>
+
+                <p><strong>10.1</strong> Users represent and warrant that they have the legal right to provide or authorize access to the User Data and that such data does not infringe the rights of any third party.</p>
+
+                <p><strong>10.2</strong> Users are responsible for assessing the compliance implications of connecting data sources to the Service, including internal policies and regulatory obligations.</p>
+
+                <hr>
+
+                <h2>11. Updates to These Terms</h2>
+
+                <p><strong>11.1</strong> The Company may update these Terms from time to time due to legal, regulatory, or service changes.</p>
+
+                <p><strong>11.2</strong> Material changes will be communicated through reasonable means. Continued use of the Service constitutes acceptance of the updated Terms.</p>
+
+                <hr>
+
+                <h2>12. Contact Information</h2>
+
+                <div class="contact-info">
+                    <p>For any questions regarding these Data Usage & Processing Terms, please contact:</p>
+                    <p>📧 <a href="mailto:bussiness@supermem.io">bussiness@supermem.io</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/terms">Terms</a>
+                <a href="mailto:contact@supermem.io">Contact</a>
+            </div>
+            <p class="copyright">
+                &copy; 2025 Supermem. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

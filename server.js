@@ -126,6 +126,11 @@ app.get('/success', (req, res) => {
     res.sendFile(__dirname + '/success.html');
 });
 
+// Terms page route
+app.get('/terms', (req, res) => {
+    res.sendFile(__dirname + '/terms.html');
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
     res.json({
