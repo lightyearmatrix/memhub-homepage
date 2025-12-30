@@ -235,17 +235,15 @@
             background: #111;
         }
 
-        .radio-group,
-        .checkbox-group {
+        .radio-group {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
 
-        .radio-option,
-        .checkbox-option {
+        .radio-option {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             padding: 1.2rem;
             background: #0a0a0a;
             border: 2px solid #333;
@@ -254,20 +252,22 @@
             transition: all 0.3s;
         }
 
-        .radio-option:hover,
-        .checkbox-option:hover {
+        .radio-option:hover {
             border-color: #6ee7b7;
             background: #111;
         }
 
-        .radio-option.selected,
-        .checkbox-option.selected {
+        .radio-option.selected {
             border-color: #6ee7b7;
             background: rgba(110, 231, 183, 0.1);
         }
 
-        input[type="radio"],
-        input[type="checkbox"] {
+        .radio-header {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="radio"] {
             margin-right: 1rem;
             width: 20px;
             height: 20px;
@@ -278,6 +278,23 @@
         .option-label {
             cursor: pointer;
             flex: 1;
+            font-weight: 600;
+        }
+
+        .option-description {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .option-price {
+            margin-left: 2rem;
+            margin-top: 0.25rem;
+            font-size: 0.875rem;
+            color: #6ee7b7;
+            font-weight: 500;
         }
 
         .conditional-question {
@@ -342,70 +359,6 @@
             transform: none;
         }
 
-        /* Celebration Screen */
-        .celebration {
-            display: none;
-            text-align: center;
-            padding: 3rem 2rem;
-        }
-
-        .celebration.active {
-            display: block;
-            animation: fadeIn 0.6s ease;
-        }
-
-        .celebration-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #a8ff9e 0%, #6ee7b7 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .celebration-message {
-            font-size: 1.2rem;
-            color: #a0a0a0;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-
-        .emoji-float {
-            position: absolute;
-            font-size: 3rem;
-            animation: floatUp 3s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-400px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        .close-modal {
-            background: #2a2a2a;
-            color: #fff;
-            border: none;
-            padding: 1rem 3rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-
-        .close-modal:hover {
-            background: #333;
-        }
-
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 3rem;
@@ -457,6 +410,7 @@
                 <div class="progress-step active"></div>
                 <div class="progress-step"></div>
                 <div class="progress-step"></div>
+                <div class="progress-step"></div>
             </div>
 
             <!-- Modal Body -->
@@ -477,43 +431,38 @@
                     </div>
                 </div>
 
-                <!-- Question 2: Building For & Company Size -->
+                <!-- Question 2: Region -->
                 <div class="question-container" data-step="2">
-                    <h2 class="question-title">Who are you building this for?</h2>
+                    <h2 class="question-title">Where are you located?</h2>
                     <div class="radio-group">
-                        <div class="radio-option" onclick="selectRadio(this, 'myself')">
-                            <input type="radio" name="buildingFor" value="myself" id="myself">
-                            <label class="option-label" for="myself">Myself</label>
+                        <div class="radio-option" onclick="selectRadio(this, 'north-america')">
+                            <div class="radio-header">
+                                <input type="radio" name="region" value="north-america" id="north-america">
+                                <label class="option-label" for="north-america">North America</label>
+                            </div>
                         </div>
-                        <div class="radio-option" onclick="selectRadio(this, 'company')">
-                            <input type="radio" name="buildingFor" value="company" id="company">
-                            <label class="option-label" for="company">My company</label>
+                        <div class="radio-option" onclick="selectRadio(this, 'europe')">
+                            <div class="radio-header">
+                                <input type="radio" name="region" value="europe" id="europe">
+                                <label class="option-label" for="europe">Europe</label>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Conditional Question: Company Size -->
-                    <div class="conditional-question" id="companySizeQuestion">
-                        <h3 class="question-title">What's the size of your company? *</h3>
-                        <div class="radio-group">
-                            <div class="radio-option" onclick="selectRadio(this, '1-10')">
-                                <input type="radio" name="companySize" value="1-10" id="size1">
-                                <label class="option-label" for="size1">1-10 employees</label>
+                        <div class="radio-option" onclick="selectRadio(this, 'asia-pacific')">
+                            <div class="radio-header">
+                                <input type="radio" name="region" value="asia-pacific" id="asia-pacific">
+                                <label class="option-label" for="asia-pacific">Asia Pacific</label>
                             </div>
-                            <div class="radio-option" onclick="selectRadio(this, '11-50')">
-                                <input type="radio" name="companySize" value="11-50" id="size2">
-                                <label class="option-label" for="size2">11-50 employees</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio(this, 'latin-america')">
+                            <div class="radio-header">
+                                <input type="radio" name="region" value="latin-america" id="latin-america">
+                                <label class="option-label" for="latin-america">Latin America</label>
                             </div>
-                            <div class="radio-option" onclick="selectRadio(this, '51-200')">
-                                <input type="radio" name="companySize" value="51-200" id="size3">
-                                <label class="option-label" for="size3">51-200 employees</label>
-                            </div>
-                            <div class="radio-option" onclick="selectRadio(this, '201-500')">
-                                <input type="radio" name="companySize" value="201-500" id="size4">
-                                <label class="option-label" for="size4">201-500 employees</label>
-                            </div>
-                            <div class="radio-option" onclick="selectRadio(this, '500+')">
-                                <input type="radio" name="companySize" value="500+" id="size5">
-                                <label class="option-label" for="size5">More than 500 employees</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio(this, 'middle-east-africa')">
+                            <div class="radio-header">
+                                <input type="radio" name="region" value="middle-east-africa" id="middle-east-africa">
+                                <label class="option-label" for="middle-east-africa">Middle East & Africa</label>
                             </div>
                         </div>
                     </div>
@@ -524,50 +473,119 @@
                     </div>
                 </div>
 
-                <!-- Question 3: Use Cases -->
+                <!-- Question 3: Building For & Company Size -->
                 <div class="question-container" data-step="3">
-                    <h2 class="question-title">What use cases do you care about most?</h2>
-                    <p style="color: #a0a0a0; margin-bottom: 1.5rem; font-size: 0.9rem;">Select all that apply</p>
-                    <div class="checkbox-group">
-                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" id="usecase1" value="onboarding">
-                            <label class="option-label" for="usecase1">Knowledge transfer for employee onboarding and
-                                offboarding</label>
+                    <h2 class="question-title">Who are you building this for?</h2>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio(this, 'myself')">
+                            <div class="radio-header">
+                                <input type="radio" name="buildingFor" value="myself" id="myself">
+                                <label class="option-label" for="myself">Myself</label>
+                            </div>
                         </div>
-                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" id="usecase2" value="search">
-                            <label class="option-label" for="usecase2">Unified and accurate enterprise search</label>
-                        </div>
-                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" id="usecase3" value="support">
-                            <label class="option-label" for="usecase3">Customer service or internal tickets
-                                support</label>
-                        </div>
-                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" id="usecase4" value="drafting">
-                            <label class="option-label" for="usecase4">Auto-drafting responses (internal &
-                                external)</label>
-                        </div>
-                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" id="usecase5" value="agent">
-                            <label class="option-label" for="usecase5">Agent-driven task execution such as meeting
-                                scheduling</label>
-                        </div>
-                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" id="usecase6" value="automation">
-                            <label class="option-label" for="usecase6">Co-pilot over codebase & docs</label>
-                        </div>
-                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" id="usecase7" value="bi">
-                            <label class="option-label" for="usecase7">Automated Business Intelligence</label>
-                        </div>
-                        <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" id="usecase8" value="other">
-                            <label class="option-label" for="usecase8">Others</label>
+                        <div class="radio-option" onclick="selectRadio(this, 'company')">
+                            <div class="radio-header">
+                                <input type="radio" name="buildingFor" value="company" id="company">
+                                <label class="option-label" for="company">My company</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="input-group" id="otherUseCaseInput" style="margin-top: 1rem; display: none;">
-                        <input type="text" id="otherUseCase" placeholder="Please specify...">
+
+                    <!-- Conditional Question: Company Size -->
+                    <div class="conditional-question" id="companySizeQuestion">
+                        <h3 class="question-title">What's the size of your company? *</h3>
+                        <div class="radio-group">
+                            <div class="radio-option" onclick="selectRadio(this, '1-10')">
+                                <div class="radio-header">
+                                    <input type="radio" name="companySize" value="1-10" id="size1">
+                                    <label class="option-label" for="size1">1-10 employees</label>
+                                </div>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio(this, '11-50')">
+                                <div class="radio-header">
+                                    <input type="radio" name="companySize" value="11-50" id="size2">
+                                    <label class="option-label" for="size2">11-50 employees</label>
+                                </div>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio(this, '51-200')">
+                                <div class="radio-header">
+                                    <input type="radio" name="companySize" value="51-200" id="size3">
+                                    <label class="option-label" for="size3">51-200 employees</label>
+                                </div>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio(this, '201-500')">
+                                <div class="radio-header">
+                                    <input type="radio" name="companySize" value="201-500" id="size4">
+                                    <label class="option-label" for="size4">201-500 employees</label>
+                                </div>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio(this, '500+')">
+                                <div class="radio-header">
+                                    <input type="radio" name="companySize" value="500+" id="size5">
+                                    <label class="option-label" for="size5">More than 500 employees</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="btn btn-back" onclick="prevStep()">Back</button>
+                        <button class="btn btn-next" onclick="nextStep()">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 4: Security Preference -->
+                <div class="question-container" data-step="4">
+                    <h2 class="question-title">Your data security preference?</h2>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio(this, 'public-cloud')">
+                            <div class="radio-header">
+                                <input type="radio" name="securityPreference" value="public-cloud" id="public-cloud">
+                                <label class="option-label" for="public-cloud">A. Public cloud is fine</label>
+                            </div>
+                            <div class="option-description">
+                                Leveraging cloud providers' encrypted data storage
+                            </div>
+                            <div class="option-price">
+                                Cost: $29-59/month/seat
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio(this, 'secured-memory')">
+                            <div class="radio-header">
+                                <input type="radio" name="securityPreference" value="secured-memory" id="secured-memory">
+                                <label class="option-label" for="secured-memory">B. Secured memory data only</label>
+                            </div>
+                            <div class="option-description">
+                                Your memory layer is in trusted engineering environment - TEE
+                            </div>
+                            <div class="option-price">
+                                Cost: $300+/month/seat
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio(this, 'everything-secure')">
+                            <div class="radio-header">
+                                <input type="radio" name="securityPreference" value="everything-secure" id="everything-secure">
+                                <label class="option-label" for="everything-secure">C. Everything secure and private (TEE with isolated cloud)</label>
+                            </div>
+                            <div class="option-description">
+                                Your entire environment, including memory and AI models, are secured and private
+                            </div>
+                            <div class="option-price">
+                                Cost: $600+/month/seat
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio(this, 'on-premise')">
+                            <div class="radio-header">
+                                <input type="radio" name="securityPreference" value="on-premise" id="on-premise">
+                                <label class="option-label" for="on-premise">D. Fully on-premise</label>
+                            </div>
+                            <div class="option-description">
+                                Everything on your server
+                            </div>
+                            <div class="option-price">
+                                Cost: $10,000 initial set up + $350/month/seat
+                            </div>
+                        </div>
                     </div>
 
                     <div class="modal-actions">
@@ -575,36 +593,13 @@
                         <button class="btn btn-next" onclick="submitForm()">Submit</button>
                     </div>
                 </div>
-
-                <!-- Celebration Screen -->
-                <div class="celebration" id="celebration">
-                    <h2 class="celebration-title">Congrats! 🎉</h2>
-                    <p class="celebration-message">
-                        You are now on our waitlist.<br>
-                        We'll inform you when the private beta is ready.
-                    </p>
-                    <button class="close-modal" onclick="closeModal()">Close</button>
-                </div>
             </div>
         </div>
     </div>
 
     <script>
         let currentStep = 1;
-        const totalSteps = 3;
-
-        // Get 'from' parameter from URL query string for ad tracking
-        function getFromParameter() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('from') || null;
-        }
-
-        const fromSource = getFromParameter();
-
-        // Log the source for debugging
-        if (fromSource) {
-            console.log('Traffic source:', fromSource);
-        }
+        const totalSteps = 4;
 
         function openModal() {
             document.getElementById('modalOverlay').classList.add('active');
@@ -653,7 +648,16 @@
             }
 
             if (currentStep === 2) {
+                const region = document.querySelector('input[name="region"]:checked');
+                if (!region) {
+                    alert('Please select your region');
+                    return;
+                }
+            }
+
+            if (currentStep === 3) {
                 const buildingFor = document.querySelector('input[name="buildingFor"]:checked');
+                console.log('Building for check:', buildingFor);
                 if (!buildingFor) {
                     alert('Please select who you are building this for');
                     return;
@@ -662,6 +666,7 @@
                 // If building for company, check if company size is selected
                 if (buildingFor.value === 'company') {
                     const companySize = document.querySelector('input[name="companySize"]:checked');
+                    console.log('Company size check:', companySize);
                     if (!companySize) {
                         alert('Please select your company size');
                         return;
@@ -682,7 +687,20 @@
 
         function selectRadio(element, value) {
             const radioInput = element.querySelector('input[type="radio"]');
+            if (!radioInput) {
+                console.error('Radio input not found in element:', element);
+                return;
+            }
+
+            console.log('Selecting radio:', radioInput.name, '=', value, 'checked:', radioInput.checked);
+
+            // Set the radio as checked
             radioInput.checked = true;
+
+            // Trigger change event to ensure the value is registered
+            radioInput.dispatchEvent(new Event('change', { bubbles: true }));
+
+            console.log('After setting checked:', radioInput.checked);
 
             // Remove selected class from siblings
             const parent = element.parentElement;
@@ -709,55 +727,28 @@
             }
         }
 
-        function toggleCheckbox(element) {
-            const checkbox = element.querySelector('input[type="checkbox"]');
-            checkbox.checked = !checkbox.checked;
-            element.classList.toggle('selected');
-
-            // Show/hide "other" input
-            if (checkbox.id === 'usecase8') {
-                const otherInput = document.getElementById('otherUseCaseInput');
-                if (checkbox.checked) {
-                    otherInput.style.display = 'block';
-                } else {
-                    otherInput.style.display = 'none';
-                    document.getElementById('otherUseCase').value = '';
-                }
-            }
-        }
-
         async function submitForm() {
-            // Validate at least one checkbox is selected
-            const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked');
-            if (checkboxes.length === 0) {
-                alert('Please select at least one use case');
+            // Validate security preference is selected
+            const securityPreference = document.querySelector('input[name="securityPreference"]:checked');
+            if (!securityPreference) {
+                alert('Please select your data security preference');
                 return;
-            }
-
-            // If "Others" is selected, check if text is provided
-            const otherCheckbox = document.getElementById('usecase8');
-            if (otherCheckbox.checked) {
-                const otherText = document.getElementById('otherUseCase').value.trim();
-                if (!otherText) {
-                    alert('Please specify your use case');
-                    return;
-                }
             }
 
             // Collect form data
             const formData = {
                 email: document.getElementById('email').value,
-                website: document.getElementById('website').value,
+                website: document.getElementById('website').value || null,
+                region: document.querySelector('input[name="region"]:checked').value,
                 buildingFor: document.querySelector('input[name="buildingFor"]:checked').value,
                 companySize: document.querySelector('input[name="companySize"]:checked')?.value || null,
-                useCases: Array.from(checkboxes).map(cb => cb.value),
-                otherUseCase: otherCheckbox.checked ? document.getElementById('otherUseCase').value.trim() : null,
-                from: fromSource  // Add traffic source for ad tracking
+                securityPreference: securityPreference.value,
+                from: 'io'  // Add from parameter
             };
 
             // Submit to server
             try {
-                const response = await fetch('http://localhost:8080/api/waitlist', {
+                const response = await fetch('/api/waitlist', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -769,53 +760,21 @@
 
                 if (result.success) {
                     console.log('Submission successful:', result);
+                    // Redirect to success page
+                    window.location.href = '/success.html';
                 } else {
                     console.error('Submission failed:', result.message);
+                    alert('Submission failed. Please try again.');
                 }
             } catch (error) {
                 console.error('Error submitting form:', error);
-                // Continue to show celebration even if submission fails
-            }
-
-            // Hide all questions
-            document.querySelectorAll('.question-container').forEach(container => {
-                container.classList.remove('active');
-            });
-
-            // Show celebration
-            document.getElementById('celebration').classList.add('active');
-
-            // Hide progress bar
-            document.getElementById('progressBar').style.display = 'none';
-
-            // Trigger emoji animation
-            createEmojiAnimation();
-        }
-
-        function createEmojiAnimation() {
-            const emojis = ['🍾', '😊', '🔔', '🎉', '✨', '🎊'];
-            const modal = document.querySelector('.modal');
-
-            for (let i = 0; i < 15; i++) {
-                setTimeout(() => {
-                    const emoji = document.createElement('div');
-                    emoji.className = 'emoji-float';
-                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                    emoji.style.left = Math.random() * 100 + '%';
-                    emoji.style.animationDelay = Math.random() * 0.5 + 's';
-                    emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    modal.appendChild(emoji);
-
-                    setTimeout(() => emoji.remove(), 3500);
-                }, i * 200);
+                alert('Error submitting form. Please try again.');
             }
         }
 
         function resetForm() {
             currentStep = 1;
             showStep(1);
-            document.getElementById('progressBar').style.display = 'flex';
-            document.getElementById('celebration').classList.remove('active');
 
             // Clear all inputs
             document.getElementById('email').value = '';
@@ -823,15 +782,10 @@
             document.querySelectorAll('input[type="radio"]').forEach(input => {
                 input.checked = false;
             });
-            document.querySelectorAll('input[type="checkbox"]').forEach(input => {
-                input.checked = false;
-            });
-            document.querySelectorAll('.radio-option, .checkbox-option').forEach(opt => {
+            document.querySelectorAll('.radio-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
             document.getElementById('companySizeQuestion').classList.remove('active');
-            document.getElementById('otherUseCaseInput').style.display = 'none';
-            document.getElementById('otherUseCase').value = '';
         }
 
         // Close modal when clicking outside

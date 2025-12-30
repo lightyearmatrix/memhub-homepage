@@ -60,9 +60,10 @@ app.post('/api/waitlist', async (req, res) => {
             website: req.body.website,
             building_for: req.body.buildingFor,
             company_size: req.body.companySize,
-            use_cases: req.body.useCases,
-            other_use_case: req.body.otherUseCase,
-            from_source: req.body.from,  // Ad tracking source
+            // New fields from WaitlistModal
+            region: req.body.region,
+            security_preference: req.body.securityPreference,
+            from_source: 'io',  // Ad tracking source
             created_at: new Date().toISOString()
         };
 
