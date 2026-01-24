@@ -131,6 +131,11 @@ app.get('/terms', (req, res) => {
     res.sendFile(__dirname + '/terms.html');
 });
 
+// Privacy Policy page route
+app.get('/privacy-policy', (req, res) => {
+    res.sendFile(__dirname + '/privacy-policy.html');
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
     res.json({
