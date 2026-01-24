@@ -1904,6 +1904,53 @@
                 font-size: 0.95rem;
             }
         }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            border-top: 1px solid rgba(184, 233, 134, 0.1);
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--peridot);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .footer-links {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
     </style>
 </head>
 
@@ -2882,6 +2929,21 @@
             observer.observe(card);
         });
     </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/terms">Terms</a>
+                <a href="/privacy-policy">Privacy</a>
+                <a href="mailto:contact@supermem.io">Contact</a>
+            </div>
+            <p class="copyright">
+                &copy; 2026 Supermem. All rights reserved.
+            </p>
+        </div>
+    </footer>
 </body>
 
 </html>
