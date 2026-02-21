@@ -7,10 +7,10 @@ import benefitBuilders from "@/assets/benefit-builders.png";
 import benefitAiNative from "@/assets/benefit-ai-native.png";
 
 const benefits = [
-  { image: benefitStartups, title: "Startups", description: "Who want to hire the best people — without the headcount.", keyword: "Startups" },
-  { image: benefitTeams, title: "Teams", description: "Which have high standards and refuse to compromise on quality.", keyword: "Teams" },
-  { image: benefitBuilders, title: "Builders", description: "Who want to become a one-person unicorn with expert-level output.", keyword: "Builders" },
-  { image: benefitAiNative, title: "Companies", description: "Transitioning to an AI-native organization structure.", keyword: "Companies" },
+  { image: benefitStartups, title: "Startups", prefix: "Who want to ", highlight: "hire the best people", rest: ".", keyword: "Startups" },
+  { image: benefitTeams, title: "Teams", prefix: "Which have ", highlight: "high standards", rest: " and refuse to compromise on quality.", keyword: "Teams" },
+  { image: benefitBuilders, title: "Builders", prefix: "Who want to become a ", highlight: "one-person unicorn", rest: " with expert-level output.", keyword: "Builders" },
+  { image: benefitAiNative, title: "Companies", prefix: "Transitioning to an ", highlight: "AI-native", rest: " organization structure.", keyword: "Companies" },
 ];
 
 const WhoBenefitsSection = () => {
@@ -45,7 +45,9 @@ const WhoBenefitsSection = () => {
                 <h3 className="font-semibold text-foreground text-lg mb-1.5">
                   <HandDrawnUnderline>{item.keyword}</HandDrawnUnderline>
                 </h3>
-                <p className="text-base text-muted-foreground">{item.description}</p>
+                <p className="text-base text-muted-foreground">
+                  {item.prefix}<span className="text-accent font-bold">{item.highlight}</span>{item.rest}
+                </p>
               </div>
             </motion.div>
           ))}

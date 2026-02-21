@@ -22,7 +22,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <SuperMemLogo className="h-12 w-auto" />
+            <SuperMemLogo className="h-[72px] w-auto" />
           </Link>
 
           {/* Navigation links */}
