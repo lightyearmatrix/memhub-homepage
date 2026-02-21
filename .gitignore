@@ -1,9 +1,22 @@
 node_modules/
+dist/
+dist-ssr/
 .env
 .env.production
 submissions.json
 traefik/acme.json
 
+# Logs
+*.log
+npm-debug.log*
+
 # IDE
 .idea/
 .vscode/
+*.local
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

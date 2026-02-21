@@ -1,19 +1,26 @@
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
+
+RUN npm run build
+
 FROM node:20-alpine
 
 WORKDIR /app
 
-# 复制依赖文件
 COPY package*.json ./
 
-# 安装生产环境依赖
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
-# 复制应用代码
-COPY . .
+COPY server.js ./
+COPY --from=builder /app/dist ./dist
 
-# 暴露端口
 EXPOSE 8080
 
-# 启动命令
-CMD ["npm", "start"]
-
+CMD ["node", "server.js"]
