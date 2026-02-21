@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import HandDrawnUnderline from "@/components/HandDrawnUnderline";
 
-import usecaseResearch from "@/assets/usecase-research.png";
-import usecaseGrowth from "@/assets/usecase-growth.png";
-import usecaseContent from "@/assets/usecase-content.png";
-import usecaseFundraising from "@/assets/usecase-fundraising.png";
-import usecaseAccounting from "@/assets/usecase-accounting.png";
+import usecaseResearch from "@/assets/usecase-research.webp";
+import usecaseGrowth from "@/assets/usecase-growth.webp";
+import usecaseContent from "@/assets/usecase-content.webp";
+import usecaseFundraising from "@/assets/usecase-fundraising.webp";
+import usecaseAccounting from "@/assets/usecase-accounting.webp";
 
 const useCases = [
   { image: usecaseResearch, title: "Research Agent", subtitle: "Trained by Top Consultants", description: "Deep market research, competitor analysis, and strategic insights — powered by how the best consultants think.", keyword: "Research" },
@@ -84,7 +84,7 @@ const UseCasesSection = () => {
               >
                 <div className="rounded-xl border border-border bg-card overflow-hidden shadow-card hover:-translate-y-px transition-all duration-150 h-full flex flex-col">
                   <div className="p-4">
-                    <div className="rounded-lg overflow-hidden border border-border/50 bg-muted/30 aspect-square">
+                    <div className="rounded-lg overflow-hidden border border-border/50 bg-muted/30 aspect-[3/2]">
                       <img src={uc.image} alt={uc.title} className="w-full h-full object-cover" />
                     </div>
                   </div>
