@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import superMemLogo from "@/assets/supermem-logo.png";
+import logoSvg from "@/assets/logo.svg";
 
 interface SuperMemLogoProps {
   className?: string;
@@ -7,11 +7,16 @@ interface SuperMemLogoProps {
 
 const SuperMemLogo = ({ className }: SuperMemLogoProps) => {
   return (
-    <img
-      src={superMemLogo}
-      alt="SuperMem"
-      className={cn("h-10 w-auto", className)}
-    />
+    <div className={cn("flex items-center gap-2 h-10", className)}>
+      <img
+        src={logoSvg}
+        alt=""
+        className="h-full w-auto flex-shrink-0"
+      />
+      <span className="text-xl font-bold text-foreground whitespace-nowrap leading-none">
+        SuperMem
+      </span>
+    </div>
   );
 };
 

@@ -98,7 +98,7 @@ const HeroSection = ({ variant, onPrimaryClick }: HeroSectionProps) => {
             <img
               src={superMemUiDemo}
               alt="SuperMem Expert Agent Network"
-              className="w-full h-auto"
+              className="w-full h-auto relative -left-8"
             />
           </div>
         </motion.div>
