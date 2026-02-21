@@ -11,7 +11,7 @@ const HeroSection = ({ variant, onPrimaryClick }: HeroSectionProps) => {
   const isClient = variant === "client";
 
   return (
-    <section className="pt-32 pb-20 bg-background">
+    <section className="pt-24 md:pt-32 pb-12 md:pb-20 bg-background">
       <div className="container mx-auto px-6">
         <motion.div 
           className="max-w-3xl mx-auto text-center"
@@ -34,7 +34,7 @@ const HeroSection = ({ variant, onPrimaryClick }: HeroSectionProps) => {
 
           {/* Headline */}
           <motion.h1 
-            className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.08] mb-6 text-foreground"
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.08] mb-6 text-foreground"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.4 }}
@@ -98,7 +98,7 @@ const HeroSection = ({ variant, onPrimaryClick }: HeroSectionProps) => {
             <img
               src={superMemUiDemo}
               alt="SuperMem Expert Agent Network"
-              className="w-full h-auto relative -left-8"
+              className="w-full h-auto relative md:-left-8"
             />
           </div>
         </motion.div>
