@@ -3,13 +3,19 @@ import { ArrowRight, Mail } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
+import logoMeta from "@/assets/meta-brand-color.svg";
+import logoGoogle from "@/assets/google-brand-color.svg";
+import logoPalantir from "@/assets/palantir-technologies-logo.svg";
+import logoBytedance from "@/assets/bytedance-color.svg";
+import logoGeorgiaTech from "@/assets/GeorgiaTech.svg";
+
 const AboutUs = () => {
   const companies = [
-    { name: "Meta AI", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/800px-Meta_Platforms_Inc._logo.svg.png" },
-    { name: "Google", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/800px-Google_2015_logo.svg.png" },
-    { name: "Palantir", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Palantir_Technologies_logo.svg/800px-Palantir_Technologies_logo.svg.png" },
-    { name: "ByteDance", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/ByteDance_logo_English.svg/800px-ByteDance_logo_English.svg.png" },
-    { name: "Georgia Tech", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Georgia_Tech_seal.svg/800px-Georgia_Tech_seal.svg.png" },
+    { name: "Meta AI", logo: logoMeta, height: "h-6" },
+    { name: "Google", logo: logoGoogle, height: "h-6" },
+    { name: "Palantir", logo: logoPalantir, height: "h-5" },
+    { name: "ByteDance", logo: logoBytedance, height: "h-7" },
+    { name: "Georgia Tech", logo: logoGeorgiaTech, height: "h-8" },
   ];
 
   const careers = [
@@ -169,7 +175,7 @@ const AboutUs = () => {
                       key={company.name}
                       src={company.logo}
                       alt={company.name}
-                      className="h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                      className={`${company.height} w-auto object-contain`}
                     />
                   ))}
                 </div>
