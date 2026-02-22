@@ -282,10 +282,10 @@ const AboutUs = () => {
                 Have questions or want to learn more? Reach out to us.
               </p>
               <a
-                href="mailto:k@supermem.io"
+                href="mailto:business@supermem.io"
                 className="text-lg font-medium text-secondary hover:text-accent transition-colors duration-150"
               >
-                k@supermem.io
+                business@supermem.io
               </a>
             </motion.div>
           </div>

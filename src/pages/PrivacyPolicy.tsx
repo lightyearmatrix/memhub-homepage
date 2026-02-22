@@ -202,10 +202,10 @@ const PrivacyPolicy = () => {
               <div className="rounded-xl border border-border bg-muted/50 p-6">
                 <p className="text-muted-foreground mb-2">If you have any questions about this Privacy Policy or our privacy practices, please contact us:</p>
                 <a
-                  href="mailto:hx@supermem.io"
+                  href="mailto:business@supermem.io"
                   className="text-lg font-medium text-foreground hover:text-accent transition-colors duration-150"
                 >
-                  hx@supermem.io
+                  business@supermem.io
                 </a>
               </div>
             </section>
