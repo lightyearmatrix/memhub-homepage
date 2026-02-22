@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Top row: logo + nav links */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <Link to="/">
-              <SuperMemLogo className="h-10 md:h-[60px] w-auto opacity-60 hover:opacity-100 transition-opacity duration-150" />
+              <SuperMemLogo className="h-9 md:h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-150" />
             </Link>
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
               <Link to="/terms" className="hover:text-foreground transition-colors duration-150">
