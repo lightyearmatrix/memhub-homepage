@@ -3,9 +3,9 @@ import SuperMemLogo from "./SuperMemLogo";
 
 const Footer = () => {
   return (
-    <footer className="py-10 border-t border-border bg-background">
+    <footer className="py-3 md:py-3 border-t border-border bg-background">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           {/* Top row: logo + nav links */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <Link to="/">
@@ -35,7 +35,7 @@ const Footer = () => {
             <a href="mailto:business@supermem.io" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-150">
               business@supermem.io
             </a>
-            <span className="text-sm text-muted-foreground">&copy; 2025 SuperMem. All rights reserved.</span>
+            <span className="text-sm text-muted-foreground">&copy; 2026 SuperMem. All rights reserved.</span>
           </div>
         </div>
       </div>
